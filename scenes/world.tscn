@@ -1,0 +1,98 @@
+[gd_scene load_steps=11 format=3 uid="uid://dvbgf6drv86br"]
+
+[ext_resource type="PackedScene" uid="uid://cwiu8nsyij4gn" path="res://data/player/player.tscn" id="1_tnv5a"]
+[ext_resource type="Script" path="res://data/scripts/world.gd" id="1_x87ln"]
+[ext_resource type="Texture2D" uid="uid://cknnpbe7gnutf" path="res://data/prototype/Green/texture_01.png" id="3_hpn24"]
+[ext_resource type="Texture2D" uid="uid://cjmy06h4u2c4r" path="res://data/prototype/Orange/texture_01.png" id="4_x8haq"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_8tvpc"]
+sky_top_color = Color(0.184314, 0.282353, 0.611765, 1)
+sky_horizon_color = Color(0.592157, 0.564706, 0.705882, 1)
+sky_curve = 0.0699775
+sky_energy_multiplier = 1.2
+ground_bottom_color = Color(0.0117647, 0.0627451, 0.0588235, 1)
+
+[sub_resource type="Sky" id="Sky_otr57"]
+sky_material = SubResource("ProceduralSkyMaterial_8tvpc")
+
+[sub_resource type="Environment" id="Environment_xbuia"]
+background_mode = 2
+background_energy_multiplier = 1.36
+sky = SubResource("Sky_otr57")
+ambient_light_source = 3
+ambient_light_color = Color(0.294118, 0.505882, 0.631373, 1)
+reflected_light_source = 2
+tonemap_mode = 2
+tonemap_white = 1.1
+volumetric_fog_density = 0.09
+adjustment_brightness = 1.14
+adjustment_contrast = 0.95
+adjustment_saturation = 0.95
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_6jvog"]
+exposure_multiplier = 1.815
+dof_blur_far_enabled = true
+dof_blur_far_distance = 150.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jxrtg"]
+albedo_texture = ExtResource("3_hpn24")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_i11u5"]
+albedo_texture = ExtResource("4_x8haq")
+
+[node name="world" type="Node3D"]
+script = ExtResource("1_x87ln")
+
+[node name="player" parent="." instance=ExtResource("1_tnv5a")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.109095, 1.5, -0.123835)
+
+[node name="environment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_xbuia")
+camera_attributes = SubResource("CameraAttributesPractical_6jvog")
+
+[node name="sun" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.25833, 0.944079, -0.204894, -0.838267, 0.324479, 0.438203, 0.480182, 0.0585549, 0.875212, -0.0479746, -0.338781, 0)
+shadow_enabled = true
+
+[node name="geometry" type="Node3D" parent="."]
+
+[node name="CSGBox3D1" type="CSGBox3D" parent="geometry"]
+use_collision = true
+size = Vector3(12, 1, 14)
+material = SubResource("StandardMaterial3D_jxrtg")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="geometry"]
+transform = Transform3D(1, 0, 0, 0, 0.893982, 0.448102, 0, -0.448102, 0.893982, 0, 3.08875, 13.0011)
+use_collision = true
+size = Vector3(12, 1, 14)
+material = SubResource("StandardMaterial3D_jxrtg")
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="geometry"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 6.174, 12.038)
+use_collision = true
+size = Vector3(12, 1, 14)
+material = SubResource("StandardMaterial3D_jxrtg")
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="geometry"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.4952, 11.9374, 12.0381)
+use_collision = true
+size = Vector3(1, 10.5584, 14)
+material = SubResource("StandardMaterial3D_i11u5")
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="geometry"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.859651, 4.88091)
+use_collision = true
+radius = 1.15626
+height = 0.771631
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="geometry"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -64.7876, -4.72036, 0.0460701)
+use_collision = true
+size = Vector3(1, 10.5584, 14)
+material = SubResource("StandardMaterial3D_i11u5")
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="geometry"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -34.1461, 3.60852, -12.9875)
+use_collision = true
+size = Vector3(1, 10.5584, 14)
+material = SubResource("StandardMaterial3D_i11u5")
